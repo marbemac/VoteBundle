@@ -23,8 +23,11 @@ class VoteController extends ContainerAware
             //return $response;
         }
 
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $return = $this->container->get('marbemac.manager.vote')->addVote($user, $oid, $collection, $amount);
+        if ($this->container->get('security.context')->isGranted('ROLE_USER'))
+        {
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            $return = $this->container->get('marbemac.manager.vote')->addVote($user, $oid, $collection, $amount);
+        }
 
         if ($this->container->get('request')->isXmlHttpRequest())
         {
