@@ -41,6 +41,8 @@ class VoteManager
         }
         else if ($object)
         {
+            $amount = (int)$amount;
+
             $return['status'] = 'success';
 
             $oldVote = $object->findVote($user->getId()->__toString());
